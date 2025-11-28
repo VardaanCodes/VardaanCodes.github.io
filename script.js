@@ -1,6 +1,43 @@
 /** @format */
 
+// Configure marked for link handling
+if (typeof marked !== "undefined") {
+  marked.use({
+    renderer: {
+      link(href, title, text) {
+        let url = href;
+        if (!url.match(/^(http|https|mailto|tel|\/|#)/)) {
+          url = "https://" + url;
+        }
+        let target = "";
+        if (url.startsWith("http")) {
+          target = ' target="_blank" rel="noopener noreferrer"';
+        }
+        return `<a href="${url}"${target} title="${title || ""}">${text}</a>`;
+      },
+    },
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
+  // Active Navigation Link Logic
+  const currentPath = window.location.pathname;
+  const navLinksArr = document.querySelectorAll(".nav-links a");
+
+  navLinksArr.forEach((link) => {
+    const linkPath = link.getAttribute("href");
+    // Simple check: if current path ends with link path (handling / vs /index.html)
+    if (
+      linkPath === currentPath.split("/").pop() ||
+      (linkPath === "index.html" && currentPath.endsWith("/")) ||
+      (linkPath === "index.html" && currentPath === "")
+    ) {
+      // Remove active class from all and add to current
+      document.querySelector(".nav-links a.active")?.classList.remove("active");
+      link.classList.add("active");
+    }
+  });
+
   // Mobile Navigation Toggle
   const hamburger = document.querySelector(".hamburger");
   const navLinks = document.querySelector(".nav-links");
@@ -74,10 +111,18 @@ document.addEventListener("DOMContentLoaded", () => {
       const displayResponse = await fetch("res/projects/Display.md");
       if (!displayResponse.ok) return; // Silent fail
       const displayText = await displayResponse.text();
+      const lines = displayText.split("\n");
 
-      const orderLine = displayText
-        .split("\n")
-        .find((line) => line.includes("Display order"));
+      // Parse Tabs per row
+      const tabsLine = lines.find((line) => line.includes("Tabs per row"));
+      if (tabsLine) {
+        const tabsCount = parseInt(tabsLine.split("-")[1].trim());
+        if (!isNaN(tabsCount) && tabsCount > 0) {
+          projectsContainer.style.gridTemplateColumns = `repeat(${tabsCount}, 1fr)`;
+        }
+      }
+
+      const orderLine = lines.find((line) => line.includes("Display order"));
       if (!orderLine) return;
 
       const projectFolders = orderLine
@@ -106,10 +151,11 @@ document.addEventListener("DOMContentLoaded", () => {
       // Parse init.md
       const details = {};
       initText.split("\n").forEach((line) => {
-        const parts = line.split("-");
-        if (parts.length >= 2) {
-          const key = parts[0].trim();
-          const value = parts.slice(1).join("-").trim();
+        // Handle lines with multiple dashes (e.g. "Project Tags - Python, JS")
+        const firstDashIndex = line.indexOf("-");
+        if (firstDashIndex !== -1) {
+          const key = line.substring(0, firstDashIndex).trim();
+          const value = line.substring(firstDashIndex + 1).trim();
           details[key] = value;
         }
       });
@@ -117,10 +163,61 @@ document.addEventListener("DOMContentLoaded", () => {
       const title = details["Project Title"] || "Untitled";
       const brief = details["Project Brief"] || "";
       const imgName = details["Project Image"] || "";
+      const tagsString = details["Project Tags"] || "";
       const detailsFile = details["Project Details"] || "Details.md";
 
       // Construct image path
       const imgPath = `res/projects/${folderName}/${imgName}`;
+
+      // Generate tags HTML
+      let tagsHtml = "";
+      if (tagsString) {
+        const tags = tagsString.split(",").map((t) => t.trim());
+
+        // Load custom icons map
+        let customIcons = {};
+        try {
+          const iconsResponse = await fetch("res/skills/icons.json");
+          if (iconsResponse.ok) {
+            customIcons = await iconsResponse.json();
+          }
+        } catch (e) {
+          console.warn("Could not load custom icons map");
+        }
+
+        const defaultIcons = {
+          Python: "fab fa-python",
+          JavaScript: "fab fa-js",
+          React: "fab fa-react",
+          "Node.js": "fab fa-node",
+          SQL: "fas fa-database",
+          Git: "fab fa-git-alt",
+          HTML: "fab fa-html5",
+          CSS: "fab fa-css3-alt",
+        };
+
+        tagsHtml = `<div class="project-tags">
+            ${tags
+              .map((tag) => {
+                const skillId = `skill-${tag
+                  .toLowerCase()
+                  .replace(/[^a-z0-9]/g, "")}`;
+
+                let iconContent = "";
+                if (customIcons[tag]) {
+                  iconContent = `<img src="res/skills/${customIcons[tag]}" alt="${tag}" class="tag-icon-img">`;
+                } else {
+                  const iconClass = defaultIcons[tag] || "fas fa-code";
+                  iconContent = `<i class="${iconClass}"></i>`;
+                }
+
+                return `<a href="skills.html#${skillId}" class="project-tag-icon" title="${tag}" onclick="event.stopPropagation()">
+                    ${iconContent}
+                </a>`;
+              })
+              .join("")}
+        </div>`;
+      }
 
       const card = document.createElement("div");
       card.className = "project-card";
@@ -130,6 +227,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <h3>${title}</h3>
                 <p>${brief}</p>
             </div>
+            ${tagsHtml}
         `;
 
       card.addEventListener("click", () =>

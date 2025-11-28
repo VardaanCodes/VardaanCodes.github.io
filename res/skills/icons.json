@@ -1,0 +1,10 @@
+{
+  "Python": "python.svg",
+  "JavaScript": "javascript.svg",
+  "HTML": "html.svg",
+  "CSS": "css.svg",
+  "React": "react.svg",
+  "Node.js": "nodejs.svg",
+  "SQL": "sql.svg",
+  "Git": "git.svg"
+}
