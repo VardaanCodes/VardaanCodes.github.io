@@ -5,12 +5,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Contact - Engineer Portfolio</title>
+    <title>Responsibilities - Engineer Portfolio</title>
     <link rel="stylesheet" href="style.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
+    <!-- Marked library for parsing Markdown -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   </head>
   <body>
     <nav class="navbar">
@@ -21,32 +23,24 @@
         <li><a href="skills.html">Skills</a></li>
         <li><a href="projects.html">Projects</a></li>
         <li><a href="achievements.html">Achievements</a></li>
-        <li><a href="responsibilities.html">Responsibilities</a></li>
-        <li><a href="contact.html" class="active">Contact</a></li>
+        <li>
+          <a href="responsibilities.html" class="active">Responsibilities</a>
+        </li>
+        <li><a href="contact.html">Contact</a></li>
       </ul>
       <div class="hamburger">
         <i class="fas fa-bars"></i>
       </div>
     </nav>
 
-    <section id="contact" class="section" style="padding-top: 100px">
+    <section id="responsibilities" class="section" style="padding-top: 100px">
       <div class="container">
-        <h2 class="section-title">Get In Touch</h2>
-        <div class="contact-content">
-          <p>
-            I'm currently open to new opportunities. Whether you have a question
-            or just want to say hi, feel free to reach out!
-          </p>
-          <a href="mailto:email@example.com" class="btn">Say Hello</a>
-          <div class="social-links">
-            <a href="#"><i class="fab fa-github"></i></a>
-            <a href="#"><i class="fab fa-linkedin"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-          </div>
+        <div id="responsibilities-container" class="markdown-content">
+          <!-- Content will be loaded from res/PoR.md -->
+          <p>Loading responsibilities...</p>
         </div>
       </div>
     </section>
-
     <footer>
       <p>&copy; 2025 VardaanCodes. All rights reserved.</p>
     </footer>

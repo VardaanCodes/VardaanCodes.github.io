@@ -5,10 +5,23 @@ if (typeof marked !== "undefined") {
   marked.use({
     renderer: {
       link(href, title, text) {
-        let url = href;
-        if (!url.match(/^(http|https|mailto|tel|\/|#)/)) {
+        let url = "";
+        try {
+          url = String(href || "").trim();
+        } catch (e) {
+          console.warn("Invalid href:", href);
+          return text;
+        }
+
+        if (!url) return text;
+
+        if (
+          typeof url.match === "function" &&
+          !url.match(/^(http|https|mailto|tel|\/|#)/)
+        ) {
           url = "https://" + url;
         }
+
         let target = "";
         if (url.startsWith("http")) {
           target = ' target="_blank" rel="noopener noreferrer"';
@@ -84,6 +97,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (projectsContainer) {
     loadProjects();
+  }
+
+  // Achievements Page Logic
+  const achievementsContainer = document.getElementById(
+    "achievements-container"
+  );
+  if (achievementsContainer) {
+    loadMarkdownContent("res/ach.md", achievementsContainer);
+  }
+
+  // Responsibilities Page Logic
+  const responsibilitiesContainer = document.getElementById(
+    "responsibilities-container"
+  );
+  if (responsibilitiesContainer) {
+    loadMarkdownContent("res/PoR.md", responsibilitiesContainer);
   }
 
   if (columnsSelect) {
@@ -253,7 +282,11 @@ document.addEventListener("DOMContentLoaded", () => {
   async function openProjectModal(folderName, detailsFile) {
     try {
       const response = await fetch(`res/projects/${folderName}/${detailsFile}`);
-      if (!response.ok) return;
+      if (!response.ok) {
+        throw new Error(
+          `Failed to load project details (Status: ${response.status})`
+        );
+      }
       const markdown = await response.text();
 
       // Convert Markdown to HTML and fix image paths
@@ -276,6 +309,30 @@ document.addEventListener("DOMContentLoaded", () => {
       modal.style.display = "block";
     } catch (error) {
       console.error("Error opening modal:", error);
+      modalBody.innerHTML = `<div style="text-align: center; padding: 2rem;">
+        <h3 style="color: #e74c3c;">Error Loading Project</h3>
+        <p>Could not load details for <strong>${folderName}</strong>.</p>
+        <p style="color: #666; font-size: 0.9em;">${error.message}</p>
+      </div>`;
+      modal.style.display = "block";
+    }
+  }
+
+  async function loadMarkdownContent(url, container) {
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Failed to load ${url}`);
+      }
+      const markdown = await response.text();
+      if (typeof marked !== "undefined") {
+        container.innerHTML = marked.parse(markdown);
+      } else {
+        container.innerHTML = `<pre>${markdown}</pre>`;
+      }
+    } catch (error) {
+      console.error("Error loading markdown:", error);
+      container.innerHTML = `<p style="color: red;">Error loading content: ${error.message}</p>`;
     }
   }
 });
