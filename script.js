@@ -80,9 +80,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const modal = document.getElementById("project-modal");
   const modalBody = document.getElementById("modal-body");
   const closeModal = document.querySelector(".close-modal");
+  const columnsSelect = document.getElementById("columns-select");
 
   if (projectsContainer) {
     loadProjects();
+  }
+
+  if (columnsSelect) {
+    columnsSelect.addEventListener("change", (e) => {
+      const cols = e.target.value;
+      projectsContainer.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+    });
   }
 
   if (closeModal) {
@@ -119,6 +127,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const tabsCount = parseInt(tabsLine.split("-")[1].trim());
         if (!isNaN(tabsCount) && tabsCount > 0) {
           projectsContainer.style.gridTemplateColumns = `repeat(${tabsCount}, 1fr)`;
+          if (columnsSelect) {
+            columnsSelect.value = tabsCount;
+          }
         }
       }
 

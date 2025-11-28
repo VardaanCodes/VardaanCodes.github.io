@@ -31,7 +31,36 @@
 
     <section class="section" style="padding-top: 100px">
       <div class="container">
-        <h2 class="section-title">My Projects</h2>
+        <div
+          class="projects-header"
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+          "
+        >
+          <h2 class="section-title" style="margin-bottom: 0">My Projects</h2>
+          <div class="view-controls">
+            <label for="columns-select" style="margin-right: 0.5rem"
+              >Columns:</label
+            >
+            <select
+              id="columns-select"
+              style="
+                padding: 0.5rem;
+                border-radius: 5px;
+                border: 1px solid #ccc;
+              "
+            >
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+            </select>
+          </div>
+        </div>
         <div class="projects-grid" id="projects-container">
           <!-- Projects will be loaded here dynamically -->
         </div>
