@@ -5,6 +5,14 @@ if (typeof marked !== "undefined") {
   marked.use({
     renderer: {
       link(href, title, text) {
+        // Handle Marked v12+ object signature
+        if (typeof href === "object" && href !== null && "href" in href) {
+          const token = href;
+          href = token.href;
+          title = token.title;
+          text = token.text;
+        }
+
         let url = "";
         try {
           url = String(href || "").trim();
@@ -23,10 +31,15 @@ if (typeof marked !== "undefined") {
         }
 
         let target = "";
+        let icon = "";
         if (url.startsWith("http")) {
           target = ' target="_blank" rel="noopener noreferrer"';
+          icon =
+            ' <i class="fas fa-external-link-alt" style="font-size: 0.7em; vertical-align: super;"></i>';
         }
-        return `<a href="${url}"${target} title="${title || ""}">${text}</a>`;
+        return `<a href="${url}"${target} title="${
+          title || ""
+        }">${text}${icon}</a>`;
       },
     },
   });
