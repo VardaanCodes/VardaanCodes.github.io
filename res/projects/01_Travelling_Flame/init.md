@@ -1,7 +1,7 @@
 <!-- @format -->
 
-Project Title - Travelling Flames
-Project Image - Brief_Img.png
-Project Brief - I contributed to the **Horizon Guild** taking part in the International Physcist Tournament.
-Project Tags - OpenCV
+Project Title - Travelling Flame (IPT 2025)
+Project Brief - Analysing flame propagation in a fuel tube.
+Project Image - flame.jpg
+Project Tags - Python, Computer Vision, Finished
 Project Details - Details.md

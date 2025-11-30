@@ -1,17 +1,19 @@
 <!-- @format -->
 
-# Positions of Responsibility
+## Coordinator, 3D Printing Club (CFI)
 
-## Team Lead - Web Dev Club
+_2023 – Present_
 
-_2023 - Present_
+- Led technical workshops and managed maintenance for the institute’s rapid prototyping lab.
 
-- Mentored 20+ junior developers.
-- Organized workshops on React and Node.js.
+## Project Member, Astrophotography Team
 
-## Event Coordinator - TechFest
+_2023 – 2024_
 
-_2022_
+- Collaborated on capturing deep-sky objects; gained practical exposure to telescopes and tracking.
 
-- Managed logistics for an event with 500+ participants.
-- Coordinated with sponsors and speakers.
+## Class Representative
+
+_2024 – Present_
+
+- Elected representative for the 2024 Mechanical Engineering batch; liaison between faculty and students.

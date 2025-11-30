@@ -1,10 +1,17 @@
 {
-  "Python": "python.svg",
-  "JavaScript": "javascript.svg",
-  "HTML": "html.svg",
-  "CSS": "css.svg",
-  "React": "react.svg",
-  "Node.js": "nodejs.svg",
-  "SQL": "sql.svg",
-  "Git": "git.svg"
+  "Python": "icons/python-logo-only.svg",
+  "Ansys": "icons/ansys.png",
+  "AutoCAD": "icons/autocad.png",
+  "ESP32": "icons/espressif-systems.svg",
+  "Numpy": "icons/NumPy.svg",
+  "Scipy": "icons/scipy.svg",
+  "Sympy": "icons/sympy.svg",
+  "Computer Vision": "icons/OpenCV_logo_no_text-1.svg",
+  "OpenCV": "icons/OpenCV_logo_no_text-1.svg",
+  "Embedded Firmware": "icons/espressif-systems.svg",
+  "CAD": "icons/autocad.png",
+  "Mechanical Design": "icons/design.png",
+  "Fusion 360": "icons/Fusion360.svg",
+  "Solidworks": "icons/SolidWorks_Logo.svg",
+  "EasyEDA": "icons/easyeda.jpeg"
 }

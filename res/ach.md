@@ -2,14 +2,6 @@
 
 # Achievements
 
-## Hackathon Winner
+**3rd Place** in TechSoc BuildSchool 6.0 competition.
 
-**First place** in the National Coding Hackathon 2024.
-
-- Developed a full-stack application in 24 hours.
-- Led a team of 4 developers.
-
-## Academic Excellence
-
-- Dean's List for 3 consecutive semesters.
-- CGPA: 9.36/10.0
+- Secured a 4,000 Rupees prize for the **Sulekhak** project (3-axis CNC handwriting machine).
