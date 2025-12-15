@@ -24,7 +24,7 @@ export default function ProjectCard({
         <img
           src={project.image}
           alt={project.title}
-          className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 bw-logo"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
 
@@ -34,7 +34,7 @@ export default function ProjectCard({
               variant="secondary"
               className="bg-white/10 text-white/90 border-white/20 text-xs"
             >
-              {project.category}
+              {project.categories?.[0] ?? "Engineering"}
             </Badge>
             <span className="text-xs text-white/60 font-mono">
               {project.year}

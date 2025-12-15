@@ -6,7 +6,7 @@
 export interface Project {
   id: string;
   title: string;
-  category: string;
+  categories: string[]; // Changed: now array to support multiple
   description: string;
   image: string;
   year: string;
@@ -94,8 +94,22 @@ function parseProjectInit(
     } else if (line.includes("Project Brief -")) {
       data.description = line.split("Project Brief -")[1].trim();
     } else if (line.includes("Project Image -")) {
-      const imageName = line.split("Project Image -")[1].trim();
-      data.image = `/res/projects/${projectId}/res/${imageName}`;
+      const rawImage = line.split("Project Image -")[1].trim();
+      let imagePath = rawImage;
+      if (imagePath.startsWith("/")) {
+        // If prefixed with /res/, strip it (publicDir serves at root)
+        imagePath = imagePath.replace(/^\/res\//, "/");
+      } else if (imagePath.startsWith("res/")) {
+        // Convert to absolute from root and drop leading res/
+        imagePath = "/" + imagePath.replace(/^res\//, "");
+      } else if (imagePath.startsWith("projects/")) {
+        // Ensure leading slash
+        imagePath = "/" + imagePath;
+      } else {
+        // Treat as filename within the project's res folder
+        imagePath = `/projects/${projectId}/res/${imagePath}`;
+      }
+      data.image = imagePath;
     } else if (line.includes("Project Tags -")) {
       data.tags = line
         .split("Project Tags -")[1]
@@ -105,7 +119,12 @@ function parseProjectInit(
     } else if (line.includes("Year -")) {
       data.year = line.split("Year -")[1].trim();
     } else if (line.includes("Category -")) {
-      data.category = line.split("Category -")[1].trim();
+      // Support multiple categories separated by comma
+      data.categories = line
+        .split("Category -")[1]
+        .trim()
+        .split(",")
+        .map((c) => c.trim());
     } else if (line.includes("Client -")) {
       data.client = line.split("Client -")[1].trim();
     } else if (line.includes("Role -")) {
@@ -125,8 +144,9 @@ function parseProjectInit(
     }
   }
 
-  // Determine category from tags if not provided
-  if (!data.category && data.tags) {
+  // Determine categories from tags if not provided
+  if (!data.categories && data.tags) {
+    data.categories = [];
     if (
       data.tags.some(
         (t: string) =>
@@ -134,33 +154,37 @@ function parseProjectInit(
           t.toLowerCase().includes("embedded")
       )
     ) {
-      data.category = "Embedded Systems";
-    } else if (
+      data.categories.push("Embedded Systems");
+    }
+    if (
       data.tags.some(
         (t: string) =>
           t.toLowerCase().includes("vision") ||
           t.toLowerCase().includes("python")
       )
     ) {
-      data.category = "Software";
-    } else if (
+      data.categories.push("Software");
+    }
+    if (
       data.tags.some(
         (t: string) =>
           t.toLowerCase().includes("mechanical") ||
           t.toLowerCase().includes("design")
       )
     ) {
-      data.category = "Mechanical Design";
-    } else if (
+      data.categories.push("Mechanical Design");
+    }
+    if (
       data.tags.some(
         (t: string) =>
           t.toLowerCase().includes("actuation") ||
           t.toLowerCase().includes("cnc")
       )
     ) {
-      data.category = "Mechatronics";
-    } else {
-      data.category = "Engineering";
+      data.categories.push("Mechatronics");
+    }
+    if (data.categories.length === 0) {
+      data.categories = ["Engineering"];
     }
   }
 
@@ -205,7 +229,7 @@ export function getProjects(): Project[] {
     projects.push({
       id: projectId,
       title: projectData.title || projectId,
-      category: projectData.category || "Engineering",
+      categories: projectData.categories || ["Engineering"],
       description: projectData.description || "",
       image: projectData.image || "/placeholder.jpg",
       year: projectData.year || "2024",
@@ -237,21 +261,20 @@ export function getProjectById(id: string): Project | null {
   return projects.find((p) => p.id === id) || null;
 }
 
-// Get featured projects (first 4)
 // Get featured projects (customizable count)
 export function getFeaturedProjects(count: number = 4): Project[] {
   // You can control which projects show on the front page:
   // Option 1: Take first N projects from Display.md order
   // return getProjects().slice(0, count);
-  
+
   // Option 2: Only show projects with specific tag
   // const projects = getProjects();
   // return projects.filter(p => p.tags.includes("Featured")).slice(0, count);
-  
-  // Option 3: Only show projects with specific category
+
+  // Option 3: Only show projects with specific category (now supports multiple)
   // const projects = getProjects();
-  // return projects.filter(p => p.category === "Mechatronics").slice(0, count);
-  
+  // return projects.filter(p => p.categories.includes("Mechatronics")).slice(0, count);
+
   // Current implementation: take first N from display order
   return getProjects().slice(0, count);
 }
@@ -267,14 +290,19 @@ export function getSkills(): Skill[] {
   // New format: Array of objects with id, name, category, iconPath
   if (Array.isArray(skillsData)) {
     skillsData.forEach((skill) => {
-      // Remove res/ prefix if it exists (it's already included in the path)
-      let iconPath = skill.iconPath;
-      if (iconPath.startsWith("res/")) {
+      let iconPath = String(skill.iconPath || "").trim();
+      if (iconPath.startsWith("/")) {
+        // use as-is (absolute from public root)
+      } else if (iconPath.startsWith("res/")) {
         iconPath = "/" + iconPath;
+      } else if (iconPath.startsWith("skills/")) {
+        iconPath = "/" + iconPath;
+      } else if (iconPath.startsWith("icons/")) {
+        iconPath = "/skills/" + iconPath;
       } else {
-        iconPath = "/res/skills/" + iconPath;
+        iconPath = "/skills/icons/" + iconPath;
       }
-      
+
       skills.push({
         id: skill.id,
         name: skill.name,
@@ -303,12 +331,25 @@ export function getSkills(): Skill[] {
       EasyEDA: "Electronics",
     };
 
-    Object.entries(skillsData).forEach(([name, iconPath]) => {
+    Object.entries(skillsData).forEach(([name, rawPath]) => {
+      let iconPath = String(rawPath || "").trim();
+      if (iconPath.startsWith("/")) {
+        // use as-is
+      } else if (iconPath.startsWith("res/")) {
+        iconPath = "/" + iconPath;
+      } else if (iconPath.startsWith("skills/")) {
+        iconPath = "/" + iconPath;
+      } else if (iconPath.startsWith("icons/")) {
+        iconPath = "/skills/" + iconPath;
+      } else {
+        iconPath = "/skills/icons/" + iconPath;
+      }
+
       skills.push({
         id: name.toLowerCase().replace(/\s+/g, "-"),
         name,
         category: categories[name] || "Other",
-        iconPath: `/res/skills/${iconPath}`,
+        iconPath,
       });
     });
   }

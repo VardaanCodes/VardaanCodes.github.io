@@ -3,90 +3,90 @@
     "id": "python",
     "name": "Python",
     "category": "Programming",
-    "iconPath": "res/skills/icons/python-logo-only.svg"
+    "iconPath": "/skills/icons/python-logo-only.svg"
   },
   {
     "id": "numpy",
     "name": "NumPy",
     "category": "Programming",
-    "iconPath": "res/skills/icons/NumPy.svg"
+    "iconPath": "/skills/icons/NumPy.svg"
   },
   {
     "id": "scipy",
     "name": "SciPy",
     "category": "Programming",
-    "iconPath": "res/skills/icons/scipy.svg"
+    "iconPath": "/skills/icons/scipy.svg"
   },
   {
     "id": "sympy",
     "name": "SymPy",
     "category": "Programming",
-    "iconPath": "res/skills/icons/sympy.svg"
+    "iconPath": "/skills/icons/sympy.svg"
   },
   {
     "id": "opencv",
     "name": "OpenCV",
     "category": "Programming",
-    "iconPath": "res/skills/icons/OpenCV_logo_no_text-1.svg"
+    "iconPath": "/skills/icons/OpenCV_logo_no_text-1.svg"
   },
   {
     "id": "computer-vision",
     "name": "Computer Vision",
     "category": "Programming",
-    "iconPath": "res/skills/icons/OpenCV_logo_no_text-1.svg"
+    "iconPath": "/skills/icons/OpenCV_logo_no_text-1.svg"
   },
   {
     "id": "fusion360",
     "name": "Fusion 360",
     "category": "CAD & Simulation",
-    "iconPath": "res/skills/icons/Fusion360.svg"
+    "iconPath": "/skills/icons/Fusion360.svg"
   },
   {
     "id": "solidworks",
     "name": "Solidworks",
     "category": "CAD & Simulation",
-    "iconPath": "res/skills/icons/SolidWorks_Logo.svg"
+    "iconPath": "/skills/icons/SolidWorks_Logo.svg"
   },
   {
     "id": "autocad",
     "name": "AutoCAD",
     "category": "CAD & Simulation",
-    "iconPath": "res/skills/icons/autocad.png"
+    "iconPath": "/skills/icons/autocad.png"
   },
   {
     "id": "ansys",
     "name": "Ansys",
     "category": "CAD & Simulation",
-    "iconPath": "res/skills/icons/ansys.png"
+    "iconPath": "/skills/icons/ansys.png"
   },
   {
     "id": "mechanical-design",
     "name": "Mechanical Design",
     "category": "CAD & Simulation",
-    "iconPath": "res/skills/icons/design.png"
+    "iconPath": "/skills/icons/design.png"
   },
   {
     "id": "cad",
     "name": "CAD",
     "category": "CAD & Simulation",
-    "iconPath": "res/skills/icons/autocad.png"
+    "iconPath": "/skills/icons/autocad.png"
   },
   {
     "id": "esp32",
     "name": "ESP32",
     "category": "Electronics",
-    "iconPath": "res/skills/icons/espressif-systems.svg"
+    "iconPath": "/skills/icons/espressif-systems.svg"
   },
   {
     "id": "embedded-firmware",
     "name": "Embedded Firmware",
     "category": "Electronics",
-    "iconPath": "res/skills/icons/espressif-systems.svg"
+    "iconPath": "/skills/icons/espressif-systems.svg"
   },
   {
     "id": "easyeda",
     "name": "EasyEDA",
     "category": "Electronics",
-    "iconPath": "res/skills/icons/easyeda.jpeg"
+    "iconPath": "/skills/icons/easyeda.jpeg"
   }
 ]

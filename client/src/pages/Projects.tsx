@@ -10,16 +10,19 @@ export default function Projects() {
   const allProjects = getProjects();
   const [activeCategory, setActiveCategory] = useState("All");
 
-  // Get unique categories from projects
+  // Get unique categories from projects (projects can have multiple)
   const categories = useMemo(() => {
-    const cats = new Set(allProjects.map((p) => p.category));
+    const cats = new Set<string>();
+    allProjects.forEach((p) => {
+      p.categories.forEach((c) => cats.add(c));
+    });
     return ["All", ...Array.from(cats).sort()];
   }, [allProjects]);
 
   const filteredProjects =
     activeCategory === "All"
       ? allProjects
-      : allProjects.filter((p) => p.category === activeCategory);
+      : allProjects.filter((p) => p.categories.includes(activeCategory));
 
   return (
     <div className="min-h-screen bg-background">

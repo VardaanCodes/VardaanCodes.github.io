@@ -181,6 +181,33 @@
   }
 }
 
+/* Monochrome/binary icon treatment to match theme */
+@layer components {
+  .binary-icon {
+    /* Convert to monochrome and increase edge definition */
+    filter: grayscale(1) contrast(200%) brightness(0.9);
+  }
+
+  .dark .binary-icon {
+    /* In dark mode, invert if needed to keep icons light */
+    filter: grayscale(1) contrast(220%) brightness(1);
+  }
+
+  /* Project logos: grayscale with slight dark bias, color on hover */
+  .bw-logo {
+    filter: grayscale(1) contrast(120%) brightness(0.9);
+    transition: filter 500ms ease, transform 500ms ease;
+  }
+
+  .dark .bw-logo {
+    filter: grayscale(1) contrast(140%) brightness(0.85);
+  }
+
+  .group:hover .bw-logo {
+    filter: none;
+  }
+}
+
 /**
  * Using the elevate system.
  * Automatic contrast adjustment.

@@ -101,9 +101,11 @@ export default function Navigation({ transparent = false }: NavigationProps) {
                 </span>
               </Link>
             ))}
-            <Button variant="outline" size="sm" className="w-fit mt-2">
-              Download CV
-            </Button>
+            <a href="/cv.pdf" download className="w-fit">
+              <Button variant="outline" size="sm" className="w-fit mt-2">
+                Download CV
+              </Button>
+            </a>
           </div>
         </div>
       )}

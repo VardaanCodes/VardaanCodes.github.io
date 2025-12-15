@@ -2,7 +2,6 @@
 
 import { useParams, Link } from "wouter";
 import Navigation from "@/components/Navigation";
-import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, ArrowRight } from "lucide-react";
@@ -30,7 +29,7 @@ export default function ProjectDetail() {
             </Link>
           </div>
         </main>
-        <Footer />
+        {/* Footer disabled */}
       </div>
     );
   }
@@ -67,7 +66,7 @@ export default function ProjectDetail() {
                 </Button>
               </Link>
               <Badge variant="secondary" className="mb-3">
-                {project.category}
+                {project.categories?.[0] ?? "Engineering"}
               </Badge>
               <h1
                 className="text-4xl md:text-5xl font-bold tracking-tight mb-4"
@@ -199,7 +198,7 @@ export default function ProjectDetail() {
         </div>
       </main>
 
-      <Footer />
+      {/* Footer disabled */}
     </div>
   );
 }

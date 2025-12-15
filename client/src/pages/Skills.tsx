@@ -53,7 +53,7 @@ export default function Skills() {
                           <img
                             src={skill.iconPath}
                             alt={skill.name}
-                            className="max-w-full max-h-full object-contain"
+                            className="max-w-full max-h-full object-contain binary-icon"
                             onError={(e) => {
                               // Fallback if image doesn't load
                               e.currentTarget.style.display = "none";
