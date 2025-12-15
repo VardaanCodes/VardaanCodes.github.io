@@ -1,4 +1,3 @@
-<!-- @format -->
 
 ## Coordinator, 3D Printing Club (CFI)
 
@@ -12,7 +11,7 @@ _2023 – 2024_
 
 - Collaborated on capturing deep-sky objects; gained practical exposure to telescopes and tracking.
 
-## Class Representative
+## Class Representative, ME24B
 
 _2024 – Present_
 
