@@ -13,6 +13,9 @@ export default function ProjectCard({
   project,
   featured = false,
 }: ProjectCardProps) {
+  const fallbackImage =
+    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAEElEQVR42mP8z/C/HwAFAAL/2aC1jgAAAABJRU5ErkJggg=="; // 1x1 black
+
   return (
     <Link href={`/projects/${project.id}`}>
       <article
@@ -25,6 +28,11 @@ export default function ProjectCard({
           src={project.image}
           alt={project.title}
           className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 bw-logo"
+          onError={(e) => {
+            if (e.currentTarget.src !== fallbackImage) {
+              e.currentTarget.src = fallbackImage;
+            }
+          }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
 

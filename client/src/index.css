@@ -200,7 +200,8 @@
   }
 
   .dark .bw-logo {
-    filter: grayscale(1) contrast(140%) brightness(0.85);
+    filter: grayscale(1) contrast(140%) brightness(0.45);
+    transition: filter 500ms ease, transform 500ms ease;
   }
 
   .group:hover .bw-logo {

@@ -471,7 +471,7 @@ export function getContactInfo(): ContactInfo[] {
     {
       label: "GitHub",
       value: "VardaanCodes",
-      href: "github.com/VardaanCodes",
+      href: "https://github.com/VardaanCodes",
     },
     {
       label: "LinkedIn",

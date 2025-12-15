@@ -13,6 +13,8 @@ export default function ProjectDetail() {
   const { id } = useParams<{ id: string }>();
   const project = id ? getProjectById(id) : null;
   const allProjects = getProjects();
+  const fallbackImage =
+    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAEElEQVR42mP8z/C/HwAFAAL/2aC1jgAAAABJRU5ErkJggg=="; // 1x1 black
 
   if (!project) {
     return (
@@ -51,6 +53,11 @@ export default function ProjectDetail() {
             src={project.image}
             alt={project.title}
             className="absolute inset-0 w-full h-full object-cover"
+            onError={(e) => {
+              if (e.currentTarget.src !== fallbackImage) {
+                e.currentTarget.src = fallbackImage;
+              }
+            }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
           <div className="absolute bottom-0 left-0 right-0 px-6 pb-8">
