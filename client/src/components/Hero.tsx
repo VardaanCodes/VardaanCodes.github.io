@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
 import { Link } from "wouter";
-import heroImage from "@assets/generated_images/cad_wireframe_power_drill_hero.png";
+import heroImage from "@assets/Lunar_Eclipse_Moon.png";
 
 export default function Hero() {
   const scrollToAbout = () => {
