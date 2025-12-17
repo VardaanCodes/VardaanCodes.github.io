@@ -484,7 +484,7 @@ export function getContactInfo(): ContactInfo[] {
 // Get about data (bio, skills summary, etc.)
 export function getAboutData() {
   return {
-    bio: "Mechanical Engineering student at IIT Bombay with a passion for robotics, embedded systems, and computational engineering. Experienced in CAD design, Python programming, and experimental analysis.",
+    bio: "Mechanical Engineering student at IIT Madras with a passion for robotics, embedded systems, and computational engineering. Experienced in CAD design, Python programming, and experimental analysis.",
     skills: getSkills(),
     experiences: getExperiences(),
     achievements: getAchievements(),
