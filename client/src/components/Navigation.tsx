@@ -12,6 +12,18 @@ interface NavigationProps {
 export default function Navigation({ transparent = false }: NavigationProps) {
   const [location] = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const CV_PATH = "/Vardaan_Srivastava_Resume.pdf";
+
+  const handleDownloadCV = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const link = document.createElement("a");
+    link.href = CV_PATH;
+    link.download = "Vardaan_Srivastava_Resume.pdf";
+    link.rel = "noopener";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   const navLinks = [
     { href: "/", label: "Home" },
@@ -61,7 +73,11 @@ export default function Navigation({ transparent = false }: NavigationProps) {
         </div>
 
         <div className="hidden md:block">
-          <a href="/cv.pdf" download>
+          <a
+            href={CV_PATH}
+            download="Vardaan_Srivastava_Resume.pdf"
+            onClick={handleDownloadCV}
+          >
             <Button variant="outline" size="sm" data-testid="button-resume">
               Download CV
             </Button>
@@ -101,7 +117,12 @@ export default function Navigation({ transparent = false }: NavigationProps) {
                 </span>
               </Link>
             ))}
-            <a href="/cv.pdf" download className="w-fit">
+            <a
+              href={CV_PATH}
+              download="Vardaan_Srivastava_Resume.pdf"
+              onClick={handleDownloadCV}
+              className="w-fit"
+            >
               <Button variant="outline" size="sm" className="w-fit mt-2">
                 Download CV
               </Button>
