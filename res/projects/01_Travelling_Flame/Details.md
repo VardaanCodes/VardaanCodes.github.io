@@ -1,5 +1,3 @@
-<!-- @format -->
-
 # Travelling Flame (IPT 2025)
 
 **September - October, 2024**
